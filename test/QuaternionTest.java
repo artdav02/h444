@@ -605,5 +605,59 @@ public class QuaternionTest {
          h1 == h2);
    }
 
+   @Test
+   public void testPowZero() {
+      Quaternion q = new Quaternion(1, 2, 3, 4);
+      Quaternion result = q.pow(0);
+      Quaternion expected = new Quaternion(1, 0, 0, 0);
+      assertEquals(expected.getRpart(), result.getRpart(), DELTA);
+      assertEquals(expected.getIpart(), result.getIpart(), DELTA);
+      assertEquals(expected.getJpart(), result.getJpart(), DELTA);
+      assertEquals(expected.getKpart(), result.getKpart(), DELTA);
+   }
+
+   @Test
+   public void testPowOne() {
+      Quaternion q = new Quaternion(1, 2, 3, 4);
+      Quaternion result = q.pow(1);
+      assertEquals(q.getRpart(), result.getRpart(), DELTA);
+      assertEquals(q.getIpart(), result.getIpart(), DELTA);
+      assertEquals(q.getJpart(), result.getJpart(), DELTA);
+      assertEquals(q.getKpart(), result.getKpart(), DELTA);
+   }
+
+   @Test
+   public void testPowMinusOne() {
+      Quaternion q = new Quaternion(1, 2, 3, 4);
+      Quaternion result = q.pow(-1);
+      Quaternion expected = q.inverse();
+      assertEquals(expected.getRpart(), result.getRpart(), DELTA);
+      assertEquals(expected.getIpart(), result.getIpart(), DELTA);
+      assertEquals(expected.getJpart(), result.getJpart(), DELTA);
+      assertEquals(expected.getKpart(), result.getKpart(), DELTA);
+   }
+
+   @Test
+   public void testPowPositive() {
+      Quaternion q = new Quaternion(1, 2, 3, 4);
+      Quaternion result = q.pow(3);
+      Quaternion expected = q.times(q).times(q);
+      assertEquals(expected.getRpart(), result.getRpart(), DELTA);
+      assertEquals(expected.getIpart(), result.getIpart(), DELTA);
+      assertEquals(expected.getJpart(), result.getJpart(), DELTA);
+      assertEquals(expected.getKpart(), result.getKpart(), DELTA);
+   }
+
+   @Test
+   public void testPowNegative() {
+      Quaternion q = new Quaternion(1, 2, 3, 4);
+      Quaternion result = q.pow(-2);
+      Quaternion expected = q.times(q).inverse();
+      assertEquals(expected.getRpart(), result.getRpart(), DELTA);
+      assertEquals(expected.getIpart(), result.getIpart(), DELTA);
+      assertEquals(expected.getJpart(), result.getJpart(), DELTA);
+      assertEquals(expected.getKpart(), result.getKpart(), DELTA);
+   }
+
 }
 
